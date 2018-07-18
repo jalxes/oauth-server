@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+    db:
+        image: mysql:5.7
+        environment:
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+        volumes:
+            - ./.data/db:/var/lib/mysql
+            - ./:/var/www/html
+            - /tmp:/tmp
+    oauth_server:
+        build:
+            context: ./
+            dockerfile: ./DevOps/Dockerfile
+        environment:
+            - APP_ENV
+            - APP_SECRET
+        volumes:
+            - ./:/var/www/html
+            - ./DevOps/server.conf:/etc/apache2/sites-available/000-default.conf
+            - ./DevOps/php.ini:/usr/local/etc/php/conf.d/php.ini
+        links:
+            - db
+        ports:
+            - 9090:80

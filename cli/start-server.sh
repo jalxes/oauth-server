@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#! /bin/bash
 
-php bin/console server:run
+/usr/local/bin/apache2-foreground
