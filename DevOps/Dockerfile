@@ -18,17 +18,13 @@ ADD ./.env ./composer.json ./composer.lock /var/www/html/
 ADD ./DevOps/php.ini /usr/local/etc/php/php.ini
 COPY ./DevOps/server.conf /etc/apache2/sites-available/000-default.conf
 
-RUN chown -R www-data:www-data /var/www
 
 WORKDIR /var/www/html/
 
 RUN composer self-update && \
-    composer install --verbose --prefer-dist --no-interaction --no-dev --optimize-autoloader --no-suggest --no-scripts
-
-RUN chown -R www-data:www-data ./ && chmod -R a+rw ./ && \
+    composer install --verbose --prefer-dist --no-interaction --no-dev --optimize-autoloader --no-suggest --no-scripts && \
     composer dump-autoload
 
-USER www-data:www-data
 
 EXPOSE 80
 
