@@ -12,9 +12,8 @@ class DefaultController extends Controller
      */
     public function index()
     {
-        return $this->json([
+        return $this->render('default/index.html.twig', array(
             'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/DefaultController.php',
-        ]);
+        ));
     }
 }

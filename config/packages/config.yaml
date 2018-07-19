@@ -1,6 +1,6 @@
 fos_user:
     db_driver: orm
-    firewall_name: main
+    firewall_name: oauth_authorize
     user_class: App\Entity\User
     from_email:
         address: "mailer_user"
@@ -14,3 +14,5 @@ fos_oauth_server:
     access_token_class:  App\Entity\AccessToken
     refresh_token_class: App\Entity\RefreshToken
     auth_code_class:     App\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username
