@@ -8,12 +8,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/default", name="default")
+     * @Route("/", name="default")
      */
     public function index()
     {
         return $this->render('default/index.html.twig', array(
-            'message' => 'Welcome to your new controller!',
+            'message' => 'Something something something!',
+        ));
+    }
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login()
+    {
+        return $this->render('default/index.html.twig', array(
+            'message' => 'llloooiiggn!',
         ));
     }
 }
