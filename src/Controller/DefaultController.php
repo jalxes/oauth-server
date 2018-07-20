@@ -16,13 +16,4 @@ class DefaultController extends Controller
             'message' => 'Something something something!',
         ));
     }
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login()
-    {
-        return $this->render('default/index.html.twig', array(
-            'message' => 'llloooiiggn!',
-        ));
-    }
 }
