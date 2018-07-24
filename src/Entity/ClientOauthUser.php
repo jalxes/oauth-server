@@ -26,18 +26,25 @@ class ClientOauthUser
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="users")
      */
     private $client;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $authorized = true;
 
-    private $authorized;
-
-    public function __construct(OauthUser $user, Client $client, bool $authorized)
+    public function __construct(OauthUser $user, Client $client)
     {
         $this->user = $user;
         $this->client = $client;
-        $this->authorized = $authorized;
     }
 
-    public function isAuthorized(ClientInterface $client) : bool
+    public function isAuthorized() : bool
     {
         return $this->authorized;
+    }
+    
+    public function setAuthorized(bool $authorized) : self
+    {
+        $this->authorized = $authorized;
+        return $this;
     }
 }

@@ -35,10 +35,4 @@ class OauthUser extends User
 
         return $this;
     }
-
-    // public function isAuthorizedClient(ClientInterface $client) : bool
-    // {
-    //     return true; # WIP
-    //     return false;
-    // }
 }

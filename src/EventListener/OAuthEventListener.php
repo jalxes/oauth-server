@@ -3,6 +3,7 @@
 namespace App\EventListener;
 
 use FOS\OAuthServerBundle\Event\OAuthEvent;
+use App\Entity\ClientOauthUser;
 
 class OAuthEventListener
 {
@@ -13,30 +14,31 @@ class OAuthEventListener
 
     public function onPreAuthorizationProcess(OAuthEvent $event)
     {
-        $user = $this->getUser($event);
-
-        if (!empty($user)) {
+        $clientOauthUser = $this->getClientOauthUser($event);
+        if (!empty($clientOauthUser)) {
             $event->setAuthorizedClient(
-                $user->isAuthorizedClient($event->getClient())
+                $clientOauthUser->isAuthorized()
             );
         }
     }
 
     public function onPostAuthorizationProcess(OAuthEvent $event)
     {
-        if ($event->isAuthorizedClient()) {
-            $client = $event->getClient();
-            if (!empty($client)) {
-                $user = $this->getUser($event);
-                $user->addClient($client);
-                $this->entityManager->save($user);
-            }
+        $clientOauthUser = $this->getClientOauthUser($event);
+        if (empty($clientOauthUser)) {
+            $clientOauthUser = new ClientOauthUser(
+                $event->getUser(),
+                $event->getClient()
+            );
         }
+        $clientOauthUser->setAuthorized($event->isAuthorizedClient());
+        $this->entityManager->persist($clientOauthUser);
+        $this->entityManager->flush();
     }
 
-    protected function getUser(OAuthEvent $event)
+    private function getClientOauthUser(OAuthEvent $event)
     {
-        return $this->entityManager->getRepository(\App\Entity\OauthUser::class)
-            ->findOneByUsername($event->getUser()->getUsername());
+        return $this->entityManager->getRepository(\App\Entity\ClientOauthUser::class)
+            ->findOneBy(['user' => $event->getUser(), 'client' => $event->getClient()]);
     }
 }
