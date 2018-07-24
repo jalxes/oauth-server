@@ -29,3 +29,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\EventListener\OauthEventListener:
+        tags:
+            - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
+            - { name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess }
+        arguments:
+            - "@doctrine.orm.default_entity_manager"

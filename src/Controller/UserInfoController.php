@@ -21,6 +21,10 @@ class UserInfoController extends Controller
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        return new JsonResponse($user);
+        return new JsonResponse([
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+        ]);
     }
 }

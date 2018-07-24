@@ -17,9 +17,16 @@ class Client extends BaseClient
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ClientOauthUser", mappedBy="client")
+     */
+    private $users;
+
     public function __construct()
     {
         parent::__construct();
+        
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         // your own logic
     }
 }

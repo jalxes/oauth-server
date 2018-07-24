@@ -23,7 +23,8 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true
-
+            default_target_path: /api/userinfo
+            always_use_default_target_path: true
         api:
             pattern:    ^/api
             fos_oauth:  true

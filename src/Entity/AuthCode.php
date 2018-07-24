@@ -24,7 +24,7 @@ class AuthCode extends BaseAuthCode
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="OauthUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
