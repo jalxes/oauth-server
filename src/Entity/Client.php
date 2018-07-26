@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 
 /**
  * @ORM\Entity
@@ -25,8 +25,7 @@ class Client extends BaseClient
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        // your own logic
     }
 }

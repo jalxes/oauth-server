@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
@@ -12,8 +12,10 @@ class DefaultController extends Controller
      */
     public function index()
     {
-        return $this->render('default/index.html.twig', array(
-            'message' => 'Something something something!',
-        ));
+        $user = $this->getUser();
+
+        return $this->render('default/index.html.twig', [
+            'message' => sprintf('Hi %s!', empty($user) ? 'anon' : $user->getUsername()),
+        ]);
     }
 }

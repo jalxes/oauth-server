@@ -2,8 +2,8 @@
 
 namespace App\EventListener;
 
-use FOS\OAuthServerBundle\Event\OAuthEvent;
 use App\Entity\ClientOauthUser;
+use FOS\OAuthServerBundle\Event\OAuthEvent;
 
 class OAuthEventListener
 {

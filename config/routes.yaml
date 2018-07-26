@@ -3,6 +3,15 @@ controllers:
     type: annotation
     prefix: /api
 
+admin_controllers:
+    resource: ../src/Controller/Admin/
+    type: annotation
+    prefix: /api/admin
+
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 

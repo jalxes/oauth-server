@@ -1,6 +1,6 @@
 fos_user:
     db_driver: orm
-    firewall_name: login
+    firewall_name: oauth_auth
     user_class: App\Entity\OauthUser
     from_email:
         address: "mailer_user"
@@ -16,7 +16,10 @@ fos_oauth_server:
     auth_code_class:     App\Entity\AuthCode
     service:
         user_provider: fos_user.user_provider.username
-    # authorize:
+        options:
+            supported_scopes: USER ADMIN SUPER_ADMIN
+        
+    authorize: true
     #     form:
     #         type: fos_oauth_server_authorize
     #         handler: fos_oauth_server.authorize.form.handler.default

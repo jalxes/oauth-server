@@ -1,9 +1,7 @@
 <?php
 namespace App\Entity;
 
-use FOS\UserBundle\Model\User;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Model\ClientInterface;
 
 /**
  * @ORM\Entity
@@ -21,7 +19,7 @@ class ClientOauthUser
      * @ORM\ManyToOne(targetEntity="OauthUser", inversedBy="clients")
      */
     private $user;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="users")
      */
@@ -37,14 +35,15 @@ class ClientOauthUser
         $this->client = $client;
     }
 
-    public function isAuthorized() : bool
+    public function isAuthorized(): bool
     {
         return $this->authorized;
     }
-    
-    public function setAuthorized(bool $authorized) : self
+
+    public function setAuthorized(bool $authorized): self
     {
         $this->authorized = $authorized;
+
         return $this;
     }
 }

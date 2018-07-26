@@ -1,13 +1,17 @@
 <?php
 namespace App\Entity;
 
-use FOS\UserBundle\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Model\ClientInterface;
+use FOS\UserBundle\Model\User;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="oauth_user")
+ * * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email", column=@ORM\Column(nullable=true)),
+ *      @ORM\AttributeOverride(name="emailCanonical", column=@ORM\Column(nullable=true))
+ * })
  */
 class OauthUser extends User
 {
@@ -29,7 +33,7 @@ class OauthUser extends User
         $this->clients = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function addClient(ClientInterface $client) : self
+    public function addClient(ClientInterface $client): self
     {
         $this->clients->add($client);
 
