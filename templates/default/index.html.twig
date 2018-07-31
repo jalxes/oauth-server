@@ -1,4 +1,24 @@
 {% extends "base.html.twig" %}
+{% block stylesheets %}
+   <style type="text/css">
+        {{ parent() }}
+        .content{
+            margin-top: 5rem;
+            padding-bottom: 50px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-{{message}}
+        {{message}}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+        </div>
+
 {% endblock %}

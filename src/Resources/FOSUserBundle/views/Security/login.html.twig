@@ -1,0 +1,16 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .inputVisible{
+            padding-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block fos_user_content %}
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ include('@FOSUser/Security/login_content.html.twig') }}
+    {% endif %}
+{% endblock fos_user_content %}

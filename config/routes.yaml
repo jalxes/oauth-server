@@ -18,5 +18,19 @@ fos_oauth_server_token:
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security_login:
+    path: /login 
+    methods: [GET, POST]
+    controller: "fos_user.security.controller:loginAction"
+
+fos_user_security_check:
+    path: /login_check 
+    methods: [POST]
+    controller: "fos_user.security.controller:checkAction"
+
+fos_user_security_logout:
+    path: /logout 
+    methods: [GET, POST]
+    controller: "fos_user.security.controller:logoutAction"
+
