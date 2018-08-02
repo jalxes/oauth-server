@@ -16,11 +16,13 @@ class UserManagementController extends Controller
      */
     public function add(Request $request, UserManagement $service)
     {
+        $params = json_decode($request->getContent(), true);
+
         try {
             $service->add([
-                'username' => $request->get('username', ''),
-                'password' => $request->get('password', ''),
-                'roles' => $request->get('roles', [\App\Entity\OauthUser::ROLE_DEFAULT]),
+                'username' => $params['username'] ?? '',
+                'password' => $params['password'] ?? '',
+                'roles' => $params['roles'] ?? [\App\Entity\OauthUser::ROLE_DEFAULT],
             ]);
 
             return new JsonResponse(['status' => 'success']);

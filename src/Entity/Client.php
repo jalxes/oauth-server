@@ -18,6 +18,11 @@ class Client extends BaseClient
     protected $id;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $name;
+
+    /**
      * @ORM\OneToMany(targetEntity="ClientOauthUser", mappedBy="client")
      */
     private $users;
@@ -27,5 +32,17 @@ class Client extends BaseClient
         parent::__construct();
 
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this->name;
     }
 }

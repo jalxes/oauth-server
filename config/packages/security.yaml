@@ -1,6 +1,11 @@
 security:
+    erase_credentials: false
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: argon2i
+            memory_cost: 16384 # Amount in KiB. 16 MiB
+            time_cost: 4 # Number of iterations
+            threads: 8 # Number of parallel threads
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -21,15 +26,23 @@ security:
 
         oauth_auth:
             pattern:    ^/oauth/v2/auth|^/log
-            form_login:
+            simple_form:
+                authenticator: App\Security\DoubleHashAuthenticator
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true
+            context:  oauth
+
         api:
             pattern:    ^/api
             fos_oauth:  true
             stateless:  true
+
+        index:
+            pattern:    ^/
+            anonymous:    true
+            context:  oauth
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

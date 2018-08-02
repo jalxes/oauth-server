@@ -26,13 +26,5 @@ class UserInfoController extends Controller
             'email' => $user->getEmail(),
             'roles' => $user->getRoles(),
         ]);
-
-        // return $this->render('default/index.html.twig', [
-        //     'message' => json_encode([
-        //         'username' => $user->getUsername(),
-        //         'email' => $user->getEmail(),
-        //         'roles' => $user->getRoles(),
-        //     ]),
-        // ]);
     }
 }

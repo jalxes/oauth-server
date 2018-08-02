@@ -23,6 +23,11 @@ class OauthUser extends User
     protected $id;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $importedPassword;
+
+    /**
      * @ORM\OneToMany(targetEntity="ClientOauthUser", mappedBy="user")
      */
     private $clients;
@@ -38,5 +43,17 @@ class OauthUser extends User
         $this->clients->add($client);
 
         return $this;
+    }
+
+    public function setImportedPassword(bool $importedPassword): self
+    {
+        $this->importedPassword = $importedPassword;
+
+        return $this;
+    }
+
+    public function isImportedPassword(): bool
+    {
+        return $this->importedPassword;
     }
 }
