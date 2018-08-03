@@ -16,15 +16,19 @@ class UserInfoController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
+        try {
+            $user = $this->getUser();
+            if (!is_object($user) || !$user instanceof UserInterface) {
+                throw new AccessDeniedException('This user does not have access to this section.');
+            }
 
-        return new JsonResponse([
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'roles' => $user->getRoles(),
-        ]);
+            return new JsonResponse([
+                'username' => $user->getUsername(),
+                'email' => $user->getEmail(),
+                'roles' => $user->getRoles(),
+            ]);
+        } catch (\Exception $exception) {
+            return new JsonResponse(['status' => 'error', 'message' => $exception->getMessage()], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

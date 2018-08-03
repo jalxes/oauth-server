@@ -30,6 +30,7 @@ class UserManagement
         $user->setUsername($params['username']);
         $user->setPlainPassword($params['password']);
         $user->setRoles($params['roles']);
+        $user->setImportedPassword($params['imported_password'] ?? true);
         $user->setEnabled(true);
 
         $this->userManager->updateUser($user);
