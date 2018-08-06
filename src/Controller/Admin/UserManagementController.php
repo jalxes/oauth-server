@@ -25,6 +25,8 @@ class UserManagementController extends Controller
             $service->add($params);
 
             return new JsonResponse(['status' => 'success']);
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $exception) {
+            return new JsonResponse(['status' => 'error', 'message' => sprintf("Duplicated Entry for '%s'", $params['username'])]);
         } catch (\Exception $exception) {
             return new JsonResponse(['status' => 'error', 'message' => $exception->getMessage()]);
         }
